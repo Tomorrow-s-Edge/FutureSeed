@@ -174,7 +174,10 @@ To run tests for this project:
 2. Run the tests using the following command:
 
 bash
-```pytest```
+```
+pytest
+```
+
 This will execute all tests defined in the tests directory.
 
 ---
@@ -205,11 +208,12 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 - Spring REST Framework for building the API.
 
-PostgreSQL for the database.
+- PostgreSQL for the database.
 
-JWT for secure token-based authentication.
+- JWT for secure token-based authentication.
 
-Open-source community for their contributions to this amazing tech stack.
+- Open-source community for their contributions to this amazing tech stack.
+
 ---
 
 ## **Folder Structure - Backend**
