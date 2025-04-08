@@ -61,7 +61,7 @@ The FutureSeed project uses the following technologies:
 
 Backend Framework:
 
-- Django (Python-based)
+- Java Springboot (Java-based)
 
 Database:
 
@@ -71,19 +71,19 @@ Authentication:
 
 - JWT (JSON Web Token)
 
-- Django REST Framework
+- Spring Boot REST Framework
 
 ORM:
 
-- Django ORM
+- Hibernate ORM
 
 Environment Management:
 
-- Python-dotenv
+- application.properties or application.yml
 
 Testing:
 
-- Pytest
+- JUnit
 
 Version Control:
 
@@ -111,7 +111,7 @@ To run the project locally, use the following command:
 
 bash
 ```
-python manage.py runserver
+mvn spring-boot:run
 ```
 
 By default, the server will be available at http://127.0.0.1:8000/.
