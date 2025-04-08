@@ -10,7 +10,7 @@
     </parent>
     <groupId>nl.smallproject.www</groupId>
     <artifactId>FutureSeed-Backend</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.1</version>
     <name>FutureSeed-Backend</name>
     <description>FutureSeed-Backend</description>
     <url/>
@@ -39,6 +39,10 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-rest</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
