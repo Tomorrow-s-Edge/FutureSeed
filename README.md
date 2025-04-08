@@ -166,6 +166,51 @@ For a full list of available endpoints, please refer to the API Documentation.
 
 ---
 
+## **Testing**
+To run tests for this project:
+
+1. Ensure your virtual environment is activated.
+
+2. Run the tests using the following command:
+
+bash
+```pytest```
+This will execute all tests defined in the tests directory.
+
+---
+
+## **Contributing**
+We welcome contributions to the FutureSeed project! If you'd like to contribute, follow these steps:
+
+1. Fork the repository.
+
+2. Create a new branch (git checkout -b feature-name).
+
+3. Make your changes and commit them (git commit -am 'Add new feature').
+
+4. Push to your branch (git push origin feature-name).
+
+5. Open a Pull Request describing your changes.
+
+---
+
+## **License**
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+
+---
+
+## **Acknowledgments**
+- Springboot for the robust framework.
+
+- Spring REST Framework for building the API.
+
+PostgreSQL for the database.
+
+JWT for secure token-based authentication.
+
+Open-source community for their contributions to this amazing tech stack.
+---
 
 ## **Folder Structure - Backend**
 
@@ -219,3 +264,7 @@ my-backend-project/
 ├── Dockerfile                            # Dockerfile for creating the app image
 ├── .env                                   # Environment variables (for local development)
 └── .idea/                                # IDE-specific files (can be excluded from version control)
+
+```
+
+detailed explanation: https://dev.to/imajenasyon/folder-structure-backend-java-2402
