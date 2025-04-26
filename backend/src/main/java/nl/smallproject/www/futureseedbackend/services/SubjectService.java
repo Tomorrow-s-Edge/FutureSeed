@@ -1,5 +1,7 @@
 package nl.smallproject.www.futureseedbackend.services;
 
+import jakarta.transaction.Transactional;
+import nl.smallproject.www.futureseedbackend.dtos.SubjectInputDto;
 import nl.smallproject.www.futureseedbackend.dtos.SubjectOutputDto;
 import nl.smallproject.www.futureseedbackend.mappers.SubjectMapper;
 import nl.smallproject.www.futureseedbackend.models.Subject;
@@ -26,5 +28,12 @@ public class SubjectService {
             subjectOutputDtos.add(subjectMapper.subjectEntityToOutputDto(subject));
         }
         return subjectOutputDtos;
+    }
+
+    @Transactional
+    public Subject createSubject(SubjectInputDto subjectInputDto) {
+        Subject subject = subjectMapper.subjectInputDtoToEntity(subjectInputDto);
+        subjectRepository.save(subject);
+        return subject;
     }
 }
