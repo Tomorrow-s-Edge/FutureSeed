@@ -1,7 +1,7 @@
 package nl.smallproject.www.futureseedbackend.mappers;
 
-import nl.smallproject.www.futureseedbackend.dtos.SubjectInputDto;
-import nl.smallproject.www.futureseedbackend.dtos.SubjectOutputDto;
+import nl.smallproject.www.futureseedbackend.dtos.subject.SubjectInputOrUpdateDto;
+import nl.smallproject.www.futureseedbackend.dtos.subject.SubjectOutputDto;
 import nl.smallproject.www.futureseedbackend.models.Subject;
 import org.springframework.stereotype.Component;
 
@@ -16,11 +16,11 @@ public class SubjectMapper {
         return subjectOutputDto;
     }
 
-    public Subject subjectInputDtoToEntity(SubjectInputDto subjectInputDto) {
+    public Subject subjectInputOrUpdateDtoToEntity(SubjectInputOrUpdateDto subjectInputOrUpdateDto) {
         Subject subject = new Subject();
-        subject.setName(subjectInputDto.getName());
-        subject.setDescription(subjectInputDto.getDescription());
-        subject.setTopics(subjectInputDto.getTopics());
+        subject.setName(subjectInputOrUpdateDto.getName());
+        subject.setDescription(subjectInputOrUpdateDto.getDescription());
+        subject.setTopics(subjectInputOrUpdateDto.getTopics());
         return subject;
     }
 }
