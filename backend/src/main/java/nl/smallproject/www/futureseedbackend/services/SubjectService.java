@@ -39,7 +39,7 @@ public class SubjectService {
         return subject;
     }
 
-    public void updateSubject(Long id, SubjectInputOrUpdateDto subjectUpdateDto) {
+    public void updateSubject(String id, SubjectInputOrUpdateDto subjectUpdateDto) {
         Subject existingSubject = subjectRepository.findById(id)
                 .orElseThrow(() -> new RecordNotFoundException("Subject not found with this id: " + id));
 

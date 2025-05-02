@@ -41,7 +41,7 @@ public class SubjectController {
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Object> updateSubject(@PathVariable Long id, @RequestBody SubjectInputOrUpdateDto subjectUpdateDto) {
+    public ResponseEntity<Object> updateSubject(@PathVariable String id, @RequestBody SubjectInputOrUpdateDto subjectUpdateDto) {
         subjectService.updateSubject(id, subjectUpdateDto);
         return ResponseEntity.noContent().build();
     }
