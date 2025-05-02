@@ -1,11 +1,20 @@
-package nl.smallproject.www.futureseedbackend.dtos;
+package nl.smallproject.www.futureseedbackend.dtos.subject;
 
 import java.util.List;
 
-public class SubjectInputDto {
+public class SubjectOutputDto {
+    private String id;
     private String name;
     private String description;
     private List<String> topics;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
