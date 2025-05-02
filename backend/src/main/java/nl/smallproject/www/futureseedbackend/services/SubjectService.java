@@ -1,11 +1,13 @@
 package nl.smallproject.www.futureseedbackend.services;
 
 import jakarta.transaction.Transactional;
-import nl.smallproject.www.futureseedbackend.dtos.SubjectInputDto;
-import nl.smallproject.www.futureseedbackend.dtos.SubjectOutputDto;
+import nl.smallproject.www.futureseedbackend.dtos.subject.SubjectInputOrUpdateDto;
+import nl.smallproject.www.futureseedbackend.dtos.subject.SubjectOutputDto;
+import nl.smallproject.www.futureseedbackend.exceptions.RecordNotFoundException;
 import nl.smallproject.www.futureseedbackend.mappers.SubjectMapper;
 import nl.smallproject.www.futureseedbackend.models.Subject;
 import nl.smallproject.www.futureseedbackend.repositories.SubjectRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -31,9 +33,18 @@ public class SubjectService {
     }
 
     @Transactional
-    public Subject createSubject(SubjectInputDto subjectInputDto) {
-        Subject subject = subjectMapper.subjectInputDtoToEntity(subjectInputDto);
+    public Subject createSubject(SubjectInputOrUpdateDto subjectInputOrUpdateDto) {
+        Subject subject = subjectMapper.subjectInputOrUpdateDtoToEntity(subjectInputOrUpdateDto);
         subjectRepository.save(subject);
         return subject;
+    }
+
+    public void updateSubject(Long id, SubjectInputOrUpdateDto subjectUpdateDto) {
+        Subject existingSubject = subjectRepository.findById(id)
+                .orElseThrow(() -> new RecordNotFoundException("Subject not found with this id: " + id));
+
+        Subject updatedSubject = subjectMapper.subjectInputOrUpdateDtoToEntity(subjectUpdateDto);
+        BeanUtils.copyProperties(updatedSubject, existingSubject, "id");
+        subjectRepository.save(existingSubject);
     }
 }
