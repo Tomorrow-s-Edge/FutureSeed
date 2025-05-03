@@ -39,6 +39,7 @@ public class SubjectService {
         return subject;
     }
 
+    @Transactional
     public void updateSubject(String id, SubjectInputOrUpdateDto subjectUpdateDto) {
         Subject existingSubject = subjectRepository.findById(id)
                 .orElseThrow(() -> new RecordNotFoundException("Subject not found with this id: " + id));
@@ -46,5 +47,10 @@ public class SubjectService {
         Subject updatedSubject = subjectMapper.subjectInputOrUpdateDtoToEntity(subjectUpdateDto);
         BeanUtils.copyProperties(updatedSubject, existingSubject, "id");
         subjectRepository.save(existingSubject);
+    }
+
+    @Transactional
+    public void deleteSubject(String id) {
+        subjectRepository.deleteById(id);
     }
 }
