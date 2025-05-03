@@ -45,4 +45,12 @@ public class SubjectController {
         subjectService.updateSubject(id, subjectUpdateDto);
         return ResponseEntity.noContent().build();
     }
+
+    @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Object> deleteSubject(@PathVariable String id) {
+        subjectService.deleteSubject(id);
+        return ResponseEntity.noContent().build();
+    }
+
+
 }
