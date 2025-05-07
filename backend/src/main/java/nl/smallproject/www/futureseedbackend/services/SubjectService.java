@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SubjectService {
@@ -31,6 +32,20 @@ public class SubjectService {
         }
         return subjectOutputDtos;
     }
+
+
+    public SubjectOutputDto getSubjectById(String id) {
+        Optional<Subject> subjectOptional = Optional.ofNullable(subjectRepository.findById(id)
+                .orElseThrow(() -> new RecordNotFoundException("Subject not found with this id: " + id)));
+
+        if (subjectOptional.isPresent()) {
+            Subject subject = subjectOptional.get();
+            return subjectMapper.subjectEntityToOutputDto(subject);
+        } else {
+            throw new RecordNotFoundException("Subject not found with this id: " + id);
+        }
+    }
+
 
     @Transactional
     public Subject createSubject(SubjectInputOrUpdateDto subjectInputOrUpdateDto) {
