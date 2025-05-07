@@ -27,6 +27,12 @@ public class SubjectController {
         return ResponseEntity.ok(subjectOutputDtos);
     }
 
+    @RequestMapping(value = "{id}",method = RequestMethod.GET)
+    public ResponseEntity<SubjectOutputDto> getSubjectById(@PathVariable String id) {
+        SubjectOutputDto subjectOutputDto = subjectService.getSubjectById(id);
+        return ResponseEntity.ok(subjectOutputDto);
+    }
+
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Object> createSubject(@RequestBody SubjectInputOrUpdateDto subjectInputDto) {
         var newSubject = subjectService.createSubject(subjectInputDto);
@@ -51,6 +57,4 @@ public class SubjectController {
         subjectService.deleteSubject(id);
         return ResponseEntity.noContent().build();
     }
-
-
 }
