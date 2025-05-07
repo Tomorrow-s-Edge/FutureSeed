@@ -2,8 +2,12 @@ name: Java CI with Maven
 
 on:
   push:
+    paths:
+      - 'backend/**'
     branches: [ backend-develop, acceptance, main ]
   pull_request:
+    paths:
+      - 'backend/**'
     branches: [ backend-develop, acceptance, main ]
 
 jobs:
