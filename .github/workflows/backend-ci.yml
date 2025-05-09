@@ -36,4 +36,4 @@ jobs:
         run: mvn clean install --no-transfer-progress
 
       - name: Run tests
-        run: mvn test --no-transfer-progress
+        run: mvn test -Dspring.profiles.active=test --no-transfer-progress
