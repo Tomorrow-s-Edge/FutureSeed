@@ -1,11 +1,22 @@
 package nl.smallproject.www.futureseedbackend.models;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Id;
+import jakarta.persistence.MappedSuperclass;
+
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+@MappedSuperclass
 public abstract class BaseObject {
+
+    @Id
     protected String id;
+
+    @Column(name = "created_at")
     protected LocalDateTime created_At;
+
+    @Column(name = "updated_at")
     protected LocalDateTime updated_At;
 
     public BaseObject() {
