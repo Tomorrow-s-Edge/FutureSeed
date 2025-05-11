@@ -1,6 +1,7 @@
 package nl.smallproject.www.futureseedbackend.mappers;
 
 import nl.smallproject.www.futureseedbackend.dtos.user.UserInputOrUpdatedto;
+import nl.smallproject.www.futureseedbackend.dtos.user.UserOutputDto;
 import nl.smallproject.www.futureseedbackend.models.User;
 import org.springframework.stereotype.Component;
 
@@ -17,5 +18,21 @@ public class UserMapper {
         user.setRole(userInputDto.getRole().toString());
         user.setIsActive(userInputDto.getIsActive());
         return user;
+    }
+
+    public UserOutputDto userEntityToOutputDto(User user) {
+        UserOutputDto userOutputDto = new UserOutputDto();
+        userOutputDto.setId(user.getId());
+        userOutputDto.setUsername(user.getUsername());
+        userOutputDto.setPassword(user.getPassword());
+        userOutputDto.setEmail(user.getEmail());
+        userOutputDto.setFirstName(user.getFirstName());
+        userOutputDto.setMiddleName(user.getMiddleName());
+        userOutputDto.setLastName(user.getLastName());
+        userOutputDto.setRole(user.getRole().toString());
+        userOutputDto.setIsActive(user.getIsActive());
+        userOutputDto.setCreated_At(user.getCreated_At());
+        userOutputDto.setUpdated_At(user.getUpdated_At());
+        return userOutputDto;
     }
 }
