@@ -1,6 +1,7 @@
 package nl.smallproject.www.futureseedbackend.controllers;
 
 import nl.smallproject.www.futureseedbackend.dtos.user.UserInputOrUpdatedto;
+import nl.smallproject.www.futureseedbackend.dtos.user.UserOutputDto;
 import nl.smallproject.www.futureseedbackend.services.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/users")
@@ -20,6 +22,12 @@ public class UserController {
 
     public UserController(UserService userService) {
         this.userService = userService;
+    }
+
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<List<UserOutputDto>> getAllUsers() {
+        List<UserOutputDto> userOutputDtos = userService.getAllUsers();
+        return ResponseEntity.ok(userOutputDtos);
     }
 
     @RequestMapping(method =  RequestMethod.POST)
