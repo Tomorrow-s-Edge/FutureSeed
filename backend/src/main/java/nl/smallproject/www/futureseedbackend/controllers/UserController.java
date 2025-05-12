@@ -27,6 +27,12 @@ public class UserController {
         return ResponseEntity.ok(userOutputDtos);
     }
 
+    @RequestMapping(value = "{id}", method = RequestMethod.GET)
+    public ResponseEntity<UserOutputDto> getUserById(@PathVariable String id) {
+        UserOutputDto userOutputDto = userService.getUserById(id);
+        return ResponseEntity.ok(userOutputDto);
+    }
+
     @RequestMapping(method =  RequestMethod.POST)
     public ResponseEntity<Object> createUser(@RequestBody UserInputOrUpdatedto userInputDto) {
         var newUser = userService.CreateUser(userInputDto);
