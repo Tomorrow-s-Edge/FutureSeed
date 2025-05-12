@@ -48,4 +48,9 @@ public class UserService {
         BeanUtils.copyProperties(updatedUser, existingUser, "id");
         userRepository.save(existingUser);
     }
+
+    @Transactional
+    public void deleteUser(String id) {
+        userRepository.deleteById(id);
+    }
 }
