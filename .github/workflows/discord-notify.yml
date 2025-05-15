@@ -17,4 +17,4 @@ jobs:
             📦 **New push to `${{ github.ref_name }}`**
             👤 By: `${{ github.actor }}`
             💬 Message: _${{ github.event.head_commit.message }}_
-            🔗 [View Commit](${{ github.event.head_commit.url }})
+            🔗 [View Commit](${{ github.event.head_commit.url }}) 
