@@ -1,7 +1,7 @@
 name: Notify Discord
 
 on:
-  push: # Trigger on all branches @testing
+  push: # Trigger on all branches
     branches:
       - '**'
 
@@ -18,12 +18,6 @@ jobs:
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}    
         with:
-          # webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
-          # message:  |
-          #   📦 **New push to `${{ github.ref_name }}`**
-          #   👤 By: `${{ github.actor }}`
-          #   💬 Message: _${{ github.event.head_commit.message }}_ "Test notification from GitHub Actions"
-          #   🔗 [View Commit](${{ github.event.head_commit.url }})
           args: |
             -w "$DISCORD_WEBHOOK" -m "📦 **New push to `${{ github.ref_name }}`**
             👤 By: `${{ github.actor }}`
