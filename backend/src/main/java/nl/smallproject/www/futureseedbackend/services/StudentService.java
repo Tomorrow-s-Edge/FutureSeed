@@ -28,7 +28,7 @@ public class StudentService {
         User user = userRepository.findById(studentInputDto.getUserId())
                 .orElseThrow(() -> new RecordNotFoundException("User not found with this id: " + studentInputDto.getUserId()));
 
-        Student student = studentMapper.studentInputDtoToEntity(studentInputDto, user);
+        Student student = studentMapper.toEntity(studentInputDto, user);
         studentRepository.save(student);
         return student;
     }

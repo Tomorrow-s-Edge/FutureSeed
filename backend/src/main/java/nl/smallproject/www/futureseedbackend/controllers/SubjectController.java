@@ -10,6 +10,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/subjects")
@@ -21,19 +22,19 @@ public class SubjectController {
         this.subjectService = subjectService;
     }
 
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping
     public ResponseEntity<List<SubjectOutputDto>> getAllSubjects() {
         List<SubjectOutputDto> subjectOutputDtos = subjectService.getAllSubjects();
         return ResponseEntity.ok(subjectOutputDtos);
     }
 
-    @RequestMapping(value = "{id}",method = RequestMethod.GET)
-    public ResponseEntity<SubjectOutputDto> getSubjectById(@PathVariable String id) {
+    @GetMapping(value = "{id}")
+    public ResponseEntity<SubjectOutputDto> getSubjectById(@PathVariable UUID id) {
         SubjectOutputDto subjectOutputDto = subjectService.getSubjectById(id);
         return ResponseEntity.ok(subjectOutputDto);
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @PostMapping
     public ResponseEntity<Object> createSubject(@RequestBody SubjectInputOrUpdateDto subjectInputDto) {
         var newSubject = subjectService.createSubject(subjectInputDto);
 
@@ -46,14 +47,14 @@ public class SubjectController {
         return ResponseEntity.created(location).eTag(String.valueOf(HttpStatus.CREATED)).body(newSubject);
     }
 
-    @RequestMapping(value = "{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Object> updateSubject(@PathVariable String id, @RequestBody SubjectInputOrUpdateDto subjectUpdateDto) {
+    @PutMapping(value = "{id}")
+    public ResponseEntity<Object> updateSubject(@PathVariable UUID id, @RequestBody SubjectInputOrUpdateDto subjectUpdateDto) {
         subjectService.updateSubject(id, subjectUpdateDto);
         return ResponseEntity.noContent().build();
     }
 
-    @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Object> deleteSubject(@PathVariable String id) {
+    @DeleteMapping(value = "{id}")
+    public ResponseEntity<Object> deleteSubject(@PathVariable UUID id) {
         subjectService.deleteSubject(id);
         return ResponseEntity.noContent().build();
     }

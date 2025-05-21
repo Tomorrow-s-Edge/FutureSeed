@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class SubjectService {
@@ -28,19 +29,19 @@ public class SubjectService {
         List<Subject> subjects = subjectRepository.findAll();
         List<SubjectOutputDto> subjectOutputDtos = new ArrayList<>();
         for (Subject subject : subjects) {
-            subjectOutputDtos.add(subjectMapper.subjectEntityToOutputDto(subject));
+            subjectOutputDtos.add(subjectMapper.toDto(subject));
         }
         return subjectOutputDtos;
     }
 
 
-    public SubjectOutputDto getSubjectById(String id) {
+    public SubjectOutputDto getSubjectById(UUID id) {
         Optional<Subject> subjectOptional = Optional.ofNullable(subjectRepository.findById(id)
                 .orElseThrow(() -> new RecordNotFoundException("Subject not found with this id: " + id)));
 
         if (subjectOptional.isPresent()) {
             Subject subject = subjectOptional.get();
-            return subjectMapper.subjectEntityToOutputDto(subject);
+            return subjectMapper.toDto(subject);
         } else {
             throw new RecordNotFoundException("Subject not found with this id: " + id);
         }
@@ -49,23 +50,23 @@ public class SubjectService {
 
     @Transactional
     public Subject createSubject(SubjectInputOrUpdateDto subjectInputOrUpdateDto) {
-        Subject subject = subjectMapper.subjectInputOrUpdateDtoToEntity(subjectInputOrUpdateDto);
+        Subject subject = subjectMapper.toEntity(subjectInputOrUpdateDto);
         subjectRepository.save(subject);
         return subject;
     }
 
     @Transactional
-    public void updateSubject(String id, SubjectInputOrUpdateDto subjectUpdateDto) {
+    public void updateSubject(UUID id, SubjectInputOrUpdateDto subjectUpdateDto) {
         Subject existingSubject = subjectRepository.findById(id)
                 .orElseThrow(() -> new RecordNotFoundException("Subject not found with this id: " + id));
 
-        Subject updatedSubject = subjectMapper.subjectInputOrUpdateDtoToEntity(subjectUpdateDto);
+        Subject updatedSubject = subjectMapper.toEntity(subjectUpdateDto);
         BeanUtils.copyProperties(updatedSubject, existingSubject, "id");
         subjectRepository.save(existingSubject);
     }
 
     @Transactional
-    public void deleteSubject(String id) {
+    public void deleteSubject(UUID id) {
         subjectRepository.deleteById(id);
     }
 }

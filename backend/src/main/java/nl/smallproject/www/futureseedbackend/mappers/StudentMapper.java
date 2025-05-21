@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class StudentMapper {
 
-    public Student studentInputDtoToEntity(StudentInputOrUpdateDto studentInputDto, User user) {
+    public Student toEntity(StudentInputOrUpdateDto studentInputDto, User user) {
         Student student = new Student();
         student.setGradeLevel(studentInputDto.getGradeLevel());
         student.setClassGroup(studentInputDto.getClassGroup());
