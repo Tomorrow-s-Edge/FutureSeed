@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Send push notification to Discord
-        uses: Ilshidur/action-discord@master
+        uses: Ilshidur/action-discord@v2.1.0
         with:
           webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
           message:  |
