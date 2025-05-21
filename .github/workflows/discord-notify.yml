@@ -1,7 +1,7 @@
 name: Notify Discord
 
 on:
-  push: # Trigger on all branches @testing
+  push: # Trigger on all branches
     branches:
       - '**'
 
