@@ -4,18 +4,30 @@ on:
   push: # Trigger on all branches
     branches:
       - '**'
+  pull_request: # Trigger on all pull request events
+    types: [opened, reopened, synchronize]
 
 jobs:
   discord:
     runs-on: ubuntu-latest
     steps:
-      - name: Send push notification to Discord
+      - name: Send push or PR notification to Discord
         uses: Ilshidur/action-discord@master
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}    
         with:
+          # args: |
+          #   -w "$DISCORD_WEBHOOK" -m "📦 **New push to `${{ github.ref_name }}`**
+          #   👤 By: `${{ github.actor }}`
+          #   💬 Message: _${{ github.event.head_commit.message }}_ 'Test notification from GitHub Actions'
+          #   🔗 [View Commit](${{ github.event.head_commit.url }})"
+
+            
           args: |
-            -w "$DISCORD_WEBHOOK" -m "📦 **New push to `${{ github.ref_name }}`**
-            👤 By: `${{ github.actor }}`
-            💬 Message: _${{ github.event.head_commit.message }}_ 'Test notification from GitHub Actions'
-            🔗 [View Commit](${{ github.event.head_commit.url }})"
+            -w "$DISCORD_WEBHOOK" -m "${{
+              github.event_name == 'push' 
+                && format('📦 **New push to `{0}`**\n👤 By: `{1}`\n💬 Message: _{2}_\n🔗 [View Commit]({3})',
+                  github.ref_name, github.actor, github.event.head_commit.message, github.event.head_commit.url)
+                || format('📬 **New Pull Request**\n🔀 `{0}` → `{1}`\n👤 By: `{2}`\n📝 Title: _{3}_\n🔗 [View PR]({4})',
+                  github.head_ref, github.base_ref, github.actor, github.event.pull_request.title, github.event.pull_request.html_url)
+            }}"
