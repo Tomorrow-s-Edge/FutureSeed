@@ -9,10 +9,6 @@ jobs:
   discord:
     runs-on: ubuntu-latest
     steps:
-      - name: Check webhook secret length
-        run: echo "Webhook length is ${{ secrets.DISCORD_WEBHOOK }}".length
-
-
       - name: Send push notification to Discord
         uses: Ilshidur/action-discord@master
         env:
