@@ -1,11 +1,11 @@
 package nl.smallproject.www.futureseedbackend.models;
 
 import jakarta.persistence.Entity;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
-@Getter
-@Setter
+@EqualsAndHashCode(callSuper = true)
+@Data
 @Entity(name = "users")
 public class User extends BaseObject{
     private String username;
