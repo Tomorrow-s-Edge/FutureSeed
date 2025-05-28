@@ -4,10 +4,7 @@ import nl.smallproject.www.futureseedbackend.dtos.student.StudentInputOrUpdateDt
 import nl.smallproject.www.futureseedbackend.services.StudentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
@@ -21,8 +18,7 @@ public class StudentController {
         this.studentService = studentService;
     }
 
-
-    @RequestMapping(method = RequestMethod.POST)
+    @PostMapping
     public ResponseEntity<Object> createStudent(@RequestBody StudentInputOrUpdateDto studentInputDto) {
         var newStudent = studentService.createStudent(studentInputDto);
 
