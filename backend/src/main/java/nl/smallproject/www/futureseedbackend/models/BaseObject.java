@@ -1,14 +1,18 @@
 package nl.smallproject.www.futureseedbackend.models;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Getter
-@Setter
+@EntityListeners(AuditingEntityListener.class)
+@Data
+@NoArgsConstructor
 @MappedSuperclass
 public abstract class BaseObject {
 
@@ -16,20 +20,11 @@ public abstract class BaseObject {
     @GeneratedValue
     protected UUID id;
 
-    @Column(name = "created_at")
+    @CreatedDate
+    @Column(name = "created_at", updatable = false)
     protected LocalDateTime created_At;
 
+    @LastModifiedDate
     @Column(name = "updated_at")
     protected LocalDateTime updated_At;
-
-    @PrePersist
-    protected void onCreate() {
-        this.created_At = LocalDateTime.now();
-        this.updated_At = LocalDateTime.now();
-    }
-
-    @PreUpdate
-    protected void onUpdate() {
-        this.updated_At = LocalDateTime.now();
-    }
 }
