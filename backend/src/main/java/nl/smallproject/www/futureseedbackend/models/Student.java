@@ -2,14 +2,12 @@ package nl.smallproject.www.futureseedbackend.models;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToOne;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Getter
-@Setter
+@Data
 @Entity(name = "students")
 public class Student extends BaseObject{
     private String studentNumber;
