@@ -10,10 +10,10 @@ import nl.smallproject.www.futureseedbackend.repositories.UserRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class UserService {
@@ -29,43 +29,43 @@ public class UserService {
         List<User> users = userRepository.findAll();
         List<UserOutputDto> userOutputDtos = new ArrayList<>();
         for (User user : users) {
-            userOutputDtos.add(userMapper.userEntityToOutputDto(user));
+            userOutputDtos.add(userMapper.toDto(user));
         }
         return userOutputDtos;
     }
 
     @Transactional
-    public UserOutputDto getUserById(String id) {
+    public UserOutputDto getUserById(UUID id) {
         Optional<User> userOptional = Optional.ofNullable(userRepository.findById(id)
                 .orElseThrow(() -> new RecordNotFoundException("User not found with this id: " + id)));
 
         if (userOptional.isPresent()) {
             User user = userOptional.get();
-            return userMapper.userEntityToOutputDto(user);
+            return userMapper.toDto(user);
         } else {
             throw new RecordNotFoundException("User not found with this id: " + id);
         }
     }
 
     @Transactional
-    public User CreateUser(UserInputOrUpdatedto userInputDto) {
-        User user = userMapper.userInputDtoToEntity(userInputDto);
+    public UserOutputDto CreateUser(UserInputOrUpdatedto userInputDto) {
+        User user = userMapper.toEntity(userInputDto);
         userRepository.save(user);
-        return user;
+        return userMapper.toDto(user);
     }
 
     @Transactional
-    public void updateUser(String id, UserInputOrUpdatedto userUpdateDto) {
+    public void updateUser(UUID id, UserInputOrUpdatedto userUpdateDto) {
         User existingUser = userRepository.findById(id)
                 .orElseThrow(() -> new RecordNotFoundException("User not found with this id: " + id));
 
-        User updatedUser = userMapper.userInputDtoToEntity(userUpdateDto);
+        User updatedUser = userMapper.toEntity(userUpdateDto);
         BeanUtils.copyProperties(updatedUser, existingUser, "id");
         userRepository.save(existingUser);
     }
 
     @Transactional
-    public void deleteUser(String id) {
+    public void deleteUser(UUID id) {
         userRepository.deleteById(id);
     }
 }
