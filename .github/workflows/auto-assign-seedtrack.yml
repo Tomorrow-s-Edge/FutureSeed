@@ -1,0 +1,71 @@
+name: Auto-assign PR to SeedTrack Project
+
+on:
+  pull_request:
+    types: [opened]
+
+jobs:
+  add-pr-to-project:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add PR to SeedTrack Project and set status to "In progress"
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            // Set API options to use the new Projects API version preview
+            const apiOptions = {
+              headers: {
+                "X-GitHub-Api-Version": "2022-11-28"
+              }
+            };
+
+            // ProjectV2 details obtained from our GraphQL query results
+            const projectId = "PVT_kwDODE_v9c4A5iLG"; // Your project ID
+            const statusFieldId = "PVTSSF_lADODE_v9c4A5iLGzguUMLs"; // "Status" field ID
+            const inProgressOptionId = "47fc9ee4"; // Option ID for "In progress"
+
+            // Retrieve the pull request payload from the event
+            const pr = context.payload.pull_request;
+
+            // Mutation to add the PR as an item to the project
+            const addItemMutation = `
+              mutation AddProjectItem($projectId: ID!, $contentId: ID!) {
+                addProjectV2Item(input: { projectId: $projectId, contentId: $contentId }) {
+                  projectV2Item {
+                    id
+                  }
+                }
+              }
+            `;
+            const addItemVariables = {
+              projectId: projectId,
+              contentId: pr.id
+            };
+            const addItemResponse = await github.graphql(addItemMutation, addItemVariables, apiOptions);
+            const projectItemId = addItemResponse.addProjectV2Item.projectV2Item.id;
+            console.log("Created project item with ID:", projectItemId);
+
+            // Mutation to update the status field of the project item to "In progress"
+            const updateStatusMutation = `
+              mutation UpdateProjectItemStatus($projectId: ID!, $itemId: ID!, $fieldId: ID!, $optionId: String!) {
+                updateProjectV2ItemFieldValue(input: {
+                  projectId: $projectId,
+                  itemId: $itemId,
+                  fieldId: $fieldId,
+                  value: { singleSelectOptionId: $optionId }
+                }) {
+                  projectV2Item {
+                    id
+                  }
+                }
+              }
+            `;
+            const updateStatusVariables = {
+              projectId: projectId,
+              itemId: projectItemId,
+              fieldId: statusFieldId,
+              optionId: inProgressOptionId
+            };
+            const updateStatusResponse = await github.graphql(updateStatusMutation, updateStatusVariables, apiOptions);
+            console.log("Updated project item status to 'In progress', item ID:", updateStatusResponse.updateProjectV2ItemFieldValue.projectV2Item.id);
