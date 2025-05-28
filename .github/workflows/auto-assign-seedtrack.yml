@@ -22,21 +22,21 @@ jobs:
             const pr = context.payload.pull_request;
             
             // Mutation to create a project item for this PR in your SeedTrack project
-            const createItemMutation = `
-              mutation CreateProjectItem($projectId: ID!, $contentId: ID!) {
-                createProjectV2Item(input: { projectId: $projectId, contentId: $contentId }) {
-                  projectV2Item {
+            const addItemMutation = `
+              mutation AddProjectItem($projectId: ID!, $contentId: ID!) {
+                addProjectV2Item(input: { projectId: $projectId, contentId: $contentId }) {
+                  item {
                     id
                   }
                 }
               }
             `;
-            const createItemVariables = {
+            const addItemVariables = {
               projectId,
               contentId: pr.id
             };
-            const createItemResponse = await github.graphql(createItemMutation, createItemVariables);
-            const projectItemId = createItemResponse.createProjectV2Item.projectV2Item.id;
+            const addItemResponse = await github.graphql(addItemMutation, addItemVariables);
+            const projectItemId = addItemResponse.addProjectV2Item.item.id;
             console.log("Created project item with ID:", projectItemId);
             
             // Mutation to update the status field of the project item to "In progress"
