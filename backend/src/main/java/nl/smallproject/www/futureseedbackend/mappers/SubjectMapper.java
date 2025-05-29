@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class SubjectMapper {
-    public SubjectOutputDto subjectEntityToOutputDto(Subject subject) {
+    public SubjectOutputDto toDto(Subject subject) {
         SubjectOutputDto subjectOutputDto = new SubjectOutputDto();
         subjectOutputDto.setId(subject.getId());
         subjectOutputDto.setName(subject.getName());
@@ -16,7 +16,7 @@ public class SubjectMapper {
         return subjectOutputDto;
     }
 
-    public Subject subjectInputOrUpdateDtoToEntity(SubjectInputOrUpdateDto subjectInputOrUpdateDto) {
+    public Subject toEntity(SubjectInputOrUpdateDto subjectInputOrUpdateDto) {
         Subject subject = new Subject();
         subject.setName(subjectInputOrUpdateDto.getName());
         subject.setDescription(subjectInputOrUpdateDto.getDescription());
