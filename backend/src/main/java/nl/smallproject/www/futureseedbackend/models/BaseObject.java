@@ -1,44 +1,30 @@
 package nl.smallproject.www.futureseedbackend.models;
 
+import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+@EntityListeners(AuditingEntityListener.class)
+@Data
+@NoArgsConstructor
+@MappedSuperclass
 public abstract class BaseObject {
-    protected String id;
+
+    @Id
+    @GeneratedValue
+    protected UUID id;
+
+    @CreatedDate
+    @Column(name = "created_at", updatable = false)
     protected LocalDateTime created_At;
+
+    @LastModifiedDate
+    @Column(name = "updated_at")
     protected LocalDateTime updated_At;
-
-    public BaseObject() {
-        this.id = UUID.randomUUID().toString();
-        this.created_At = LocalDateTime.now();
-        this.updated_At = LocalDateTime.now();
-    }
-
-    public void save() {
-        this.updated_At = LocalDateTime.now();
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public LocalDateTime getCreated_At() {
-        return created_At;
-    }
-
-    public void setCreated_At(LocalDateTime created_At) {
-        this.created_At = created_At;
-    }
-
-    public LocalDateTime getUpdated_At() {
-        return updated_At;
-    }
-
-    public void setUpdated_At(LocalDateTime updated_At) {
-        this.updated_At = updated_At;
-    }
 }
