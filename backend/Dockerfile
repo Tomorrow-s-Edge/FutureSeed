@@ -1,14 +1,20 @@
-# Use OpenJDK 21 as the base image
+# Use OpenJDK 21 as base image
 FROM openjdk:21-jdk-slim
 
-# Set working directory inside the container
+# Set working directory
 WORKDIR /app
 
-# Copy the packaged Spring Boot application (JAR file)
+# Copy project files (except target folder)
+COPY . .
+
+# Build the project
+RUN ./mvnw clean package -DskipTests
+
+# Copy the packaged JAR file to the container
 COPY target/*.jar app.jar
 
-# Expose the application port (Render defaults to 8080)
+# Expose the application port
 EXPOSE 8080
 
-# Run the Spring Boot application
+# Run the application
 ENTRYPOINT ["java", "-jar", "app.jar"]
