@@ -7,6 +7,9 @@ WORKDIR /app
 # Copy project files (except target folder)
 COPY . .
 
+# Ensure the Maven wrapper is executable
+RUN chmod +x mvnw
+
 # Build the project
 RUN ./mvnw clean package -DskipTests
 
@@ -18,3 +21,4 @@ EXPOSE 8080
 
 # Run the application
 ENTRYPOINT ["java", "-jar", "app.jar"]
+
