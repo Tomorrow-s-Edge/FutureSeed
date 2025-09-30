@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const Login = () => {
+const Index = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -10,7 +10,7 @@ const Login = () => {
 
         // Mock validation
         if (email === 'user@example.com' && password === 'password123') {
-            alert('Login successful!');
+            alert('Index successful!');
             // Redirect or update app state here
         } else {
             setError('Invalid email or password');
@@ -78,4 +78,4 @@ const styles = {
     },
 };
 
-export default Login;
+export default Index;

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
-class Homepage extends Component {
+class Index extends Component {
     render() {
         return (
             <div className="container py-5">
@@ -68,4 +68,4 @@ class Homepage extends Component {
     }
 }
 
-export default Homepage;
+export default Index;

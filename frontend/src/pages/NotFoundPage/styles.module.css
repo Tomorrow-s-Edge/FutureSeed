@@ -1,0 +1,11 @@
+.container {
+    text-align: center;
+    padding: 4rem;
+}
+
+.homeLink {
+    display: inline-block;
+    margin-top: 1rem;
+    color: #007bff;
+    text-decoration: underline;
+}

@@ -1,8 +1,9 @@
 import './App.css'
 import {Route, Routes} from "react-router-dom";
-import Login from "./authentication/login/Login.jsx";
-import Homepage from "./pages/homepage/Homepage.jsx";
+import LoginPage from "./authentication/LoginPage/index.jsx";
+import HomePage from "./pages/HomePage/index.jsx";
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import NotFoundPage from "./pages/NotFoundPage/index.jsx";
 
 function App() {
 
@@ -10,8 +11,10 @@ function App() {
     <>
         <main>
             <Routes>
-                <Route path="/" element={<Homepage/>}/>
-                <Route path="/login" element={<Login/>}/>
+                <Route path="/" element={<HomePage/>}/>
+                <Route path="/login" element={<LoginPage/>}/>
+
+                <Route path="/*" element={<NotFoundPage/>}/>
             </Routes>
         </main>
     </>
